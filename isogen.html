@@ -215,14 +215,29 @@
   	  }
   	}
 
-
-    function downloadImage() {
-      const canvas = document.getElementById('canvas');
-      const link = document.createElement('a');
-      link.download = 'isometric-grid.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
+  	function downloadImage() {
+  	  const a = +document.getElementById('ratioAInput').value;
+  	  const b = +document.getElementById('ratioBInput').value;
+  	  const count = +document.getElementById('countInput').value;
+  	  const color = document.getElementById('colorInput').value.replace("#", "");
+  	  const lineWeight = Math.max(1, +document.getElementById('lineWeightInput').value);
+  	  const lineStyle = document.getElementById('lineStyleInput').value;
+  	  const showDots = document.getElementById('dotsInput').checked;
+  	  const dotColor = document.getElementById('dotColorInput').value.replace("#", "");
+  	  const dotRadius = Math.max(1, +document.getElementById('dotSizeInput').value);
+  
+  	  let fileName = `isogrid_r${a}to${b}_n${count}_${lineStyle}_lc${color}`;
+  	  if (showDots) {
+  		fileName += `_dots_${dotColor}`;
+  	  }
+  	  fileName += `.png`;
+  
+  	  const canvas = document.getElementById('canvas');
+  	  const link = document.createElement('a');
+  	  link.download = fileName;
+  	  link.href = canvas.toDataURL('image/png');
+  	  link.click();
+  	}
 
     drawGrid();
   </script>
